@@ -1,18 +1,19 @@
-// 23/8/2562
 #define BLYNK_PRINT Serial
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 
-char auth[] = "83b7d0b48b384520a16a2daaf68ddc6d";
-char ssid[] = "P";
-char pass[] = "12345678";
-char host[] = "blynk.honey.co.th";
+//char auth[] = "83b7d0b48b384520a16a2daaf68ddc6d";
+char auth[] = "uMXrGhL2Gte5mVjXVGKWsjrqQnzWH3je";
 
-const int output_mode = D2;
-const int switch_1 = D3;
-const int switch_2 = D4;
-const int switch_3 = D5;
-const int switch_4 = D6;
+char ssid[] = "vivo v15 pro";
+char pass[] = "123456789";
+//char host[] = "blynk.honey.co.th";
+
+const int output_mode = D1;
+const int switch_1 = D2;
+const int switch_2 = D5;
+const int switch_3 = D6;
+const int switch_4 = D7;
 
 int mode_switch;
 int switch_1_read;
@@ -24,13 +25,18 @@ BlynkTimer timer;
 
 void setup() {
   Serial.begin(9600);
-  //  Blynk.begin(auth, ssid, pass);
-  Blynk.begin(auth , ssid , pass , host , 8080);
+  Blynk.begin(auth, ssid, pass);
+  //  Blynk.begin(auth , ssid , pass , host , 8080);
   pinMode(output_mode , OUTPUT);
   pinMode(switch_1 , OUTPUT);
   pinMode(switch_2 , OUTPUT);
   pinMode(switch_3 , OUTPUT);
   pinMode(switch_4 , OUTPUT);
+  digitalWrite(output_mode , 1);
+  digitalWrite(switch_1 , 1);
+  digitalWrite(switch_2 , 1);
+  digitalWrite(switch_3 , 1);
+  digitalWrite(switch_4 , 1);
   timer.setInterval(100L, sendUptime);
 }
 
@@ -53,7 +59,7 @@ BLYNK_WRITE(V0) {
 
 void sendUptime() {
   if (mode_switch == 1) {
-    digitalWrite(output_mode , 1);
+    digitalWrite(output_mode , 0);
     delay(20);
     if (switch_swing == 1) {
       Serial.println("swing");
@@ -89,6 +95,7 @@ void sendUptime() {
       digitalWrite(switch_1 , 1);
       digitalWrite(switch_2 , 1);
       digitalWrite(switch_3 , 1);
+      digitalWrite(switch_4 , 1);
     }
   }
   else {
@@ -97,7 +104,7 @@ void sendUptime() {
     digitalWrite(switch_2 , 1);
     digitalWrite(switch_3 , 1);
     digitalWrite(switch_4 , 1);
-    
+
     delay(20);
     digitalWrite(output_mode , 0);
   }
